@@ -11,27 +11,39 @@
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            checkForRequestParam();
+
             $("#searchContainer").submit(function (e) {
                 e.preventDefault();
                 var query = $("#searchBox").val();
-                var uri = "/api/search/get";
+                window.history.pushState(query + " search", query + " search", "?query=" + query);
+                submitQuery(query);
 
-                $.getJSON(uri + "?query=" + query)
-                    .done(function (data) {
-                        clearResults();
-                        var rowDiv = $("<div>", { class: "row row-eq-height" });
-                        $.each(data, function (key, item) {
-                            // Add a list item for the product.
-                            formatItem(item).appendTo($(rowDiv));
-                        });
-                        rowDiv.appendTo($("#searchResults"));
-                        console.log(rowDiv);
-                    });
                 return false;
             })
 
         })
-
+        function checkForRequestParam() {
+            var q = get('query');
+            if (q) {
+                submitQuery(q);
+            }
+        }
+        function submitQuery(query) {
+            var uri = "/api/search/get";
+            $("#searchBox").val(query);
+            $.getJSON(uri + "?query=" + query)
+                .done(function (data) {
+                    clearResults();
+                    var rowDiv = $("<div>", { class: "row row-eq-height" });
+                    $.each(data, function (key, item) {
+                        // Add a list item for the product.
+                        formatItem(item).appendTo($(rowDiv));
+                    });
+                    rowDiv.appendTo($("#searchResults"));
+                    console.log(rowDiv);
+                });
+        }
         function formatItem(item) {
             var el = {
                 newDiv: $("<div>", { class: "searchResultItem col-lg-3 col-md-4 col-sm-6 col-xs-12"}),
@@ -46,5 +58,10 @@
 
         function clearResults() {
             $("#searchResults").empty();
+        }
+
+        function get(name) {
+            if (name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(location.search))
+                return decodeURIComponent(name[1]);
         }
     </script>
