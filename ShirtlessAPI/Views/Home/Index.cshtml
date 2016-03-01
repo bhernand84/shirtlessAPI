@@ -34,7 +34,7 @@
 
         function formatItem(item) {
             var el = {
-                newDiv: $("<div>", { class: "searchResultItem col-lg-3 col-md-4 col-xs-6"}),
+                newDiv: $("<div>", { class: "searchResultItem col-lg-3 col-md-4 col-sm-6 col-xs-12"}),
                 newImg: $('<img>', {height: item.ThumbnailImage.Height, width: item.ThumbnailImage.Width, class: "img-rounded", src: item.ThumbnailImage.MediaUrl}),
                 newAnchor: $("<a>", {target: "_blank", class: "thumbnail", id: "newAnchor", href: item.MediaUrl })
             };
