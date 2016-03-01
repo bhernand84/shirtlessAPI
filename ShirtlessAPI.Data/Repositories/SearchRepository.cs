@@ -16,7 +16,7 @@ namespace ShirtlessAPI.Data.Repositories
 
         public IEnumerable<Search> GetSearchListings()
         {
-            return db.Searches.ToList();
+            return db.Searches.OrderByDescending(m=>m.Count).Take(10).ToList();
         }
 
         public void Add(string query)
