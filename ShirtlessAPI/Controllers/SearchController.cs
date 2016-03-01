@@ -12,7 +12,7 @@ namespace ShirtlessAPI.Controllers
     public class SearchController : ApiController
     {
         protected SearchProvider _searchProvider { get; set; }
-
+        protected LogProvider _logProvider { get; set; }
         // GET api/<controller>
         public IEnumerable<string> Get()
         {
@@ -22,6 +22,7 @@ namespace ShirtlessAPI.Controllers
         // GET api/<controller>/5
         public IEnumerable<SearchResult> Get(string query)
         {
+            _logProvider.Log(query);
             return _searchProvider.Get(query);            
         }
 
@@ -30,6 +31,7 @@ namespace ShirtlessAPI.Controllers
         public SearchController()
         {
             _searchProvider = new BingSearchProvider();
+            _logProvider = new EntityLogProvider();
         }
         #endregion
     }

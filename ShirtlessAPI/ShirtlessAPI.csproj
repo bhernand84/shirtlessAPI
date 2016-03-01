@@ -251,6 +251,7 @@
     <Compile Include="Models\BingSearchContainer.cs" />
     <Compile Include="Models\BingSearchProvider.cs" />
     <Compile Include="Models\DummyLogger.cs" />
+    <Compile Include="Models\EntityLogProvider.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LogProvider.cs" />
     <Compile Include="Models\SearchProvider.cs" />
@@ -335,6 +336,12 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ShirtlessAPI.Data\ShirtlessAPI.Data.csproj">
+      <Project>{2ad27c4b-dbb1-469d-b560-5528ad44b8f2}</Project>
+      <Name>ShirtlessAPI.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

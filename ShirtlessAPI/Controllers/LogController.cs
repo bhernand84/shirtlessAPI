@@ -11,7 +11,7 @@ namespace ShirtlessAPI.Controllers
     public class LogController : ApiController
     {
         protected LogProvider _logProvider { get; set; }
-
+            
         public IEnumerable<string> Get()
         {
             return _logProvider.GetLogs();
@@ -19,7 +19,7 @@ namespace ShirtlessAPI.Controllers
 
         public LogController()
         {
-            _logProvider = new DummyLogger();
+            _logProvider = new EntityLogProvider();
         }
     }
 }
