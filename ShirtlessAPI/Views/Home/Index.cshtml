@@ -1,24 +1,50 @@
-﻿<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-        a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-        is an ideal platform for building RESTful applications on the .NET Framework.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
-    </div>
-</div>
+﻿    <h2>welcome, dickpigs</h2>
+    <form id="searchContainer" class="form-inline">
+        <div class="form-group">
+            <label for="searchBox" class="sr-only">Search for a dude</label>
+            <input type="text" id="searchBox" class="form-control" placeholder="search for a dude"/>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+    <div id="searchResults"class="container"></div>
+
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#searchContainer").submit(function (e) {
+                e.preventDefault();
+                var query = $("#searchBox").val();
+                var uri = "/api/search/get";
+
+                $.getJSON(uri + "?query=" + query)
+                    .done(function (data) {
+                        clearResults();
+                        var rowDiv = $("<div>", { class: "row row-eq-height" });
+                        $.each(data, function (key, item) {
+                            // Add a list item for the product.
+                            formatItem(item).appendTo($(rowDiv));
+                        });
+                        rowDiv.appendTo($("#searchResults"));
+                        console.log(rowDiv);
+                    });
+                return false;
+            })
+
+        })
+
+        function formatItem(item) {
+            var el = {
+                newDiv: $("<div>", { class: "searchResultItem col-lg-3 col-md-4 col-xs-6"}),
+                newImg: $('<img>', {height: item.ThumbnailImage.Height, width: item.ThumbnailImage.Width, class: "img-rounded", src: item.ThumbnailImage.MediaUrl}),
+                newAnchor: $("<a>", {target: "_blank", class: "thumbnail", id: "newAnchor", href: item.MediaUrl })
+            };
+
+            el.newImg.appendTo(el.newAnchor);
+            el.newAnchor.appendTo(el.newDiv);
+            return el.newDiv;
+        }
+
+        function clearResults() {
+            $("#searchResults").empty();
+        }
+    </script>

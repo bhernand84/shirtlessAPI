@@ -10,7 +10,7 @@ namespace ShirtlessAPI.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
+            ViewBag.Title = "welcome, dickpigs";
 
             return View();
         }
