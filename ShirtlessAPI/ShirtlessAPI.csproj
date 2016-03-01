@@ -238,6 +238,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -249,7 +250,9 @@
     <Compile Include="Models\BingHelpers.cs" />
     <Compile Include="Models\BingSearchContainer.cs" />
     <Compile Include="Models\BingSearchProvider.cs" />
+    <Compile Include="Models\DummyLogger.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LogProvider.cs" />
     <Compile Include="Models\SearchProvider.cs" />
     <Compile Include="Models\SearchResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

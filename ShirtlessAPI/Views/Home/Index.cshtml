@@ -1,4 +1,10 @@
 ﻿    <h2>welcome, pigs</h2>
+    <div>
+        
+        <ul id="popularSearches" class="list-inline">
+            <li>popular now: </li>
+        </ul>
+    </div>
     <form id="searchContainer" class="form-inline">
         <div class="form-group">
             <label for="searchBox" class="sr-only">Search for a dude</label>
@@ -12,7 +18,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             checkForRequestParam();
-
+            getLogs();
             $("#searchContainer").submit(function (e) {
                 e.preventDefault();
                 var query = $("#searchBox").val();
@@ -41,9 +47,20 @@
                         formatItem(item).appendTo($(rowDiv));
                     });
                     rowDiv.appendTo($("#searchResults"));
-                    console.log(rowDiv);
                 });
         }
+        function getLogs() {
+            var uri = "/api/log/get";
+            $.getJSON(uri)
+                .done(function (data) {
+                    $.each(data, function (key, search) {
+                        // Add a list item for the product.
+                        var div = $("<li>");
+                        $("<a>", { href: "/?query=" + search, text: search }).appendTo($(div));
+                        div.appendTo($("#popularSearches"));
+                    });
+                });
+}
         function formatItem(item) {
             var el = {
                 newDiv: $("<div>", { class: "searchResultItem col-lg-3 col-md-4 col-sm-6 col-xs-12"}),
