@@ -243,11 +243,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\APIKeys.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BingHelpers.cs" />
     <Compile Include="Models\BingSearchContainer.cs" />
+    <Compile Include="Models\BingSearchProvider.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\SearchProvider.cs" />
     <Compile Include="Models\SearchResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />

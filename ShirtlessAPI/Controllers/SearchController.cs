@@ -11,6 +11,8 @@ namespace ShirtlessAPI.Controllers
 {
     public class SearchController : ApiController
     {
+        protected SearchProvider _searchProvider { get; set; }
+
         // GET api/<controller>
         public IEnumerable<string> Get()
         {
@@ -20,28 +22,15 @@ namespace ShirtlessAPI.Controllers
         // GET api/<controller>/5
         public IEnumerable<SearchResult> Get(string query)
         {
-            // Create a Bing container.
-
-            string rootUri = "https://api.datamarket.azure.com/Bing/Search";
-
-            var bingContainer = new Bing.BingSearchContainer(new Uri(rootUri));
-
-            // Replace this value with your account key.
-
-            var accountKey = APIKeys.BingKey;
-
-            // Configure bingContainer to use your credentials.
-
-            bingContainer.Credentials = new NetworkCredential(accountKey, accountKey);
-
-            // Build the query.
-
-            var imageQuery = bingContainer.Image(query + " shirtless", null, null, null, null, null, null);
-
-            var imageResults = imageQuery.Execute();
-
-            return imageResults.Select(m => m.ToSearchResult());    
-            
+            return _searchProvider.Get(query);            
         }
+
+        #region Constructors
+
+        public SearchController()
+        {
+            _searchProvider = new BingSearchProvider();
+        }
+        #endregion
     }
 }
