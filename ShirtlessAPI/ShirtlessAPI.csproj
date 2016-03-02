@@ -237,6 +237,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AutoCompleteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -247,6 +248,8 @@
     <Compile Include="Helpers\APIKeys.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\SpellingSuggestionsProvider.cs" />
+    <Compile Include="Models\BingSpellingSuggestionsProvider.cs" />
     <Compile Include="Models\BingHelpers.cs" />
     <Compile Include="Models\BingSearchContainer.cs" />
     <Compile Include="Models\BingSearchProvider.cs" />
