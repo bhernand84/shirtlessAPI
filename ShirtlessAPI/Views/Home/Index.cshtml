@@ -4,30 +4,57 @@
             <li>popular now: </li>
         </ul>
     </div>
-    <form id="searchContainer" class="form-inline">
+    <form id="searchContainer">
         <div class="form-group">
             <label for="searchBox" class="sr-only">Search for a dude</label>
             <input type="text" id="searchBox" class="form-control" placeholder="search for a dude"/>
+            <button type="submit" class="btn btn-default">Submit</button>
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
     </form>
     <div id="searchResults"class="container"></div>
 
-    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            checkForRequestParam();
-            getLogs();
-            $("#searchContainer").submit(function (e) {
-                e.preventDefault();
-                var query = $("#searchBox").val();
-                window.history.pushState(query + " search", query + " search", "?query=" + query);
-                submitQuery(query);
+@section Scripts{
+   <script type="text/javascript">
+       $(document).ready(function () {
+           checkForRequestParam();
+           getLogs();
+           $("#searchContainer").submit(function (e) {
+               e.preventDefault();
+               var query = $("#searchBox").val();
+               window.history.pushState(query + " search", query + " search", "?query=" + query);
+               submitQuery(query);
 
-                return false;
-            })
+               return false;
+           });
 
-        })
+
+           $('#searchBox').typeahead({
+               minLength:3,
+           },
+            {
+                name: 'value',
+                displayKey: 'value',
+                source: function (query, syncResults, asyncResults) {
+                    $.getJSON('http://api.bing.com/osjson.aspx?JsonType=callback&JsonCallback=?', {
+                        query: query
+                    }, function (data) {
+                        var obj = $.map(data[1], function (item) {
+                            return { value: item };
+                        })
+                        asyncResults(obj);
+                    });
+                },
+                templates: {
+                    empty: [
+                        '<div class="noitems">',
+                        'No Items Found',
+                        '</div>'
+                    ].join('\n')
+                }
+            }).bind('typeahead:selected', function (obj, datum) {
+                $("#searchContainer").submit();
+            });
+        });
         function checkForRequestParam() {
             var q = get('query');
             if (q) {
@@ -59,7 +86,7 @@
                         div.appendTo($("#popularSearches"));
                     });
                 });
-}
+    }
         function formatItem(item) {
             var el = {
                 newDiv: $("<div>", { class: "searchResultItem col-lg-3 col-md-4 col-sm-6 col-xs-12"}),
@@ -81,3 +108,4 @@
                 return decodeURIComponent(name[1]);
         }
     </script>
+}
