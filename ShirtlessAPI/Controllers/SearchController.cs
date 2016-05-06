@@ -27,9 +27,9 @@ namespace ShirtlessAPI.Controllers
         }
 
         [HttpPost]
-        public SearchResult Post(string query)
+        public SearchResult Post(string text)
         {
-            return _searchProvider.Post(query);
+            return _searchProvider.Post(text);
         }
 
         #region Constructors
