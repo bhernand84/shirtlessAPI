@@ -9,6 +9,6 @@ namespace ShirtlessAPI.Models
     {
         IEnumerable<SearchResult> Get(string query);
 
-        SearchResult Post(string query);
+        SearchResult Post(string text);
     }
 }
