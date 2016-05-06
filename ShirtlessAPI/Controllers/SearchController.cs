@@ -26,6 +26,7 @@ namespace ShirtlessAPI.Controllers
             return _searchProvider.Get(query);            
         }
 
+        [HttpPost]
         public SearchResult Post(string query)
         {
             return _searchProvider.Post(query);
