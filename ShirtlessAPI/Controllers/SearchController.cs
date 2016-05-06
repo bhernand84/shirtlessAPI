@@ -26,6 +26,11 @@ namespace ShirtlessAPI.Controllers
             return _searchProvider.Get(query);            
         }
 
+        public SearchResult Post(string query)
+        {
+            return _searchProvider.Post(query);
+        }
+
         #region Constructors
 
         public SearchController()
