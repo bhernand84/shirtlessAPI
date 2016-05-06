@@ -27,7 +27,7 @@ namespace ShirtlessAPI.Controllers
         }
 
         [HttpPost]
-        public SearchResult Post(string text)
+        public SearchResult Post([FromBody]string text)
         {
             return _searchProvider.Post(text);
         }
