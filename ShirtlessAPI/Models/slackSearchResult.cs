@@ -9,16 +9,30 @@ namespace ShirtlessAPI.Models
     {
         public string response_type { get; set; }
         public string text { get; set; }
-        public string image_url { get; set; }
-        public string thumb_url { get; set; }
+        public SlackAttachment attachments { get; set; }
 
         public SlackSearchResult() {}
 
-        public SlackSearchResult(string Text, string MediaUrl, string ThumbUrl)
+        public SlackSearchResult(string Text, SlackAttachment Attachments)
         {
             response_type = "in_channel";
             text = Text;
-            image_url = MediaUrl;
+            attachments = Attachments;
+        }
+    }
+
+    public class SlackAttachment
+    {
+        public string title { get; set; }
+        public string image_url { get; set; }
+        public string thumb_url { get; set; }
+
+        public SlackAttachment() { }
+
+        public SlackAttachment(string Title, string ImageUrl, string ThumbUrl)
+        {
+            title = Title;
+            image_url = ImageUrl;
             thumb_url = ThumbUrl;
         }
     }
