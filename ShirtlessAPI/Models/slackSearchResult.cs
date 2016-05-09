@@ -7,17 +7,17 @@ namespace ShirtlessAPI.Models
 {
     public class SlackSearchResult
     {
-        public string Text { get; set; }
-        public string MediaUrl { get; set; }
-        public string ThumbUrl { get; set; }
+        public string text { get; set; }
+        public string media_url { get; set; }
+        public string thumb_url { get; set; }
 
         public SlackSearchResult() {}
 
-        public SlackSearchResult(string text, string mediaUrl, string thumbUrl)
+        public SlackSearchResult(string Text, string MediaUrl, string ThumbUrl)
         {
             Text = text;
-            MediaUrl = mediaUrl;
-            ThumbUrl = thumbUrl;
+            media_url = MediaUrl;
+            thumb_url = ThumbUrl;
         }
     }
 }
