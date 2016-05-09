@@ -30,7 +30,7 @@ namespace ShirtlessAPI.Controllers
 
             SearchResult image = images[randomNumber];
             List<SlackAttachment> attachments = new List<SlackAttachment>();
-            SlackAttachment attachment = new SlackAttachment(image.Title, image.MediaUrl, image.ThumbnailImage.MediaUrl);
+            SlackAttachment attachment = new SlackAttachment(image.Title, image.MediaUrl);
             attachments.Add(attachment);
             SlackSearchResult slackResult = new SlackSearchResult(image.Title, attachments);
 
