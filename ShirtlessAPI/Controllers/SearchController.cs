@@ -20,10 +20,10 @@ namespace ShirtlessAPI.Controllers
         }
 
         // GET api/<controller>/5
-        public IEnumerable<SearchResult> Get(string query)
+        public IEnumerable<SearchResult> Get(string text)
         {
-            _logProvider.Log(query);
-            return _searchProvider.Get(query);            
+            _logProvider.Log(text);
+            return _searchProvider.Get(text);            
         }
 
         [HttpPost]
