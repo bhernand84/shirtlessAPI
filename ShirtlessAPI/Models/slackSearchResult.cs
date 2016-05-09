@@ -7,6 +7,7 @@ namespace ShirtlessAPI.Models
 {
     public class SlackSearchResult
     {
+        public string response_type { get; set; }
         public string text { get; set; }
         public string image_url { get; set; }
         public string thumb_url { get; set; }
@@ -15,6 +16,7 @@ namespace ShirtlessAPI.Models
 
         public SlackSearchResult(string Text, string MediaUrl, string ThumbUrl)
         {
+            response_type = "in_channel";
             text = Text;
             image_url = MediaUrl;
             thumb_url = ThumbUrl;
