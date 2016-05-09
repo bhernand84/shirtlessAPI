@@ -29,7 +29,9 @@ namespace ShirtlessAPI.Controllers
             int randomNumber = random.Next(0, images.Count());
 
             SearchResult image = images[randomNumber];
-            SlackAttachment attachments = new SlackAttachment(image.Title, image.MediaUrl, image.ThumbnailImage.MediaUrl);
+            List<SlackAttachment> attachments = new List<SlackAttachment>();
+            SlackAttachment attachment = new SlackAttachment(image.Title, image.MediaUrl, image.ThumbnailImage.MediaUrl);
+            attachments.Add(attachment);
             SlackSearchResult slackResult = new SlackSearchResult(image.Title, attachments);
 
             return slackResult;
