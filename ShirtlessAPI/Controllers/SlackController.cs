@@ -20,12 +20,15 @@ namespace ShirtlessAPI.Controllers
         }
 
         // GET api/<controller>/5
-        public SearchResult Get(string text)
+        public SlackSearchResult Get(string text)
         {
             _logProvider.Log(text);
             var images = _searchProvider.Get(text);
 
-            return images.FirstOrDefault();
+            SearchResult image = images.FirstOrDefault();
+            SlackSearchResult slackResult = new SlackSearchResult(image.Title, image.MediaUrl, image.ThumbnailImage.MediaUrl);
+
+            return slackResult;
         }
 
         [HttpPost]
