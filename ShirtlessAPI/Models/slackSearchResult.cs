@@ -9,13 +9,12 @@ namespace ShirtlessAPI.Models
     {
         public string response_type { get; set; }
         public string text { get; set; }
-        public SlackAttachment attachments { get; set; }
+        public IEnumerable<SlackAttachment> attachments { get; set; }
 
         public SlackSearchResult() {}
 
-        public SlackSearchResult(string Text, SlackAttachment Attachments)
+        public SlackSearchResult(string Text, IEnumerable<SlackAttachment> Attachments)
         {
-            response_type = "in_channel";
             text = Text;
             attachments = Attachments;
         }
