@@ -35,7 +35,7 @@ namespace ShirtlessAPI.Models
             return imageResults.Select(m => m.ToSearchResult());
         }
 
-        public SearchResult Post(string query)
+        public IEnumerable<SearchResult> Post(string query)
         {
             string rootUri = "https://api.datamarket.azure.com/Bing/Search";
 
@@ -55,9 +55,7 @@ namespace ShirtlessAPI.Models
 
             var imageResults = imageQuery.Execute();
 
-            ImageResult imageResult = imageResults.FirstOrDefault();
-
-            return imageResult.ToSearchResult();
+            return imageResults.Select(m => m.ToSearchResult());
         }
     }
 }
