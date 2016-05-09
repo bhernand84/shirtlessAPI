@@ -23,9 +23,11 @@ namespace ShirtlessAPI.Controllers
         public SlackSearchResult Get(string text)
         {
             _logProvider.Log(text);
-            var images = _searchProvider.Get(text);
+            List<SearchResult> images = _searchProvider.Get(text).ToList();
 
-            SearchResult image = images.FirstOrDefault();
+            Random random = new Random();
+            int randomNumber = random.Next(0, images.Count());
+            SearchResult image = images[randomNumber];
             SlackSearchResult slackResult = new SlackSearchResult(image.Title, image.MediaUrl, image.ThumbnailImage.MediaUrl);
 
             return slackResult;
