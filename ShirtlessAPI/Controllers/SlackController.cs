@@ -6,24 +6,27 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
+using Microsoft.Ajax.Utilities;
 
 namespace ShirtlessAPI.Controllers
 {
+    [EnableCors(origins: "http://shirtless.azurewebsites.net/api/slack", headers: "*", methods: "*")]
     public class SlackController : ApiController
     {
         protected SearchProvider _searchProvider { get; set; }
         protected LogProvider _logProvider { get; set; }
-        // GET api/<controller>
+
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<controller>/5
-        public SlackSearchResult Get(string text)
+        [HttpPost]
+        public SlackSearchResult Post(string text)
         {
             _logProvider.Log(text);
-            List<SearchResult> images = _searchProvider.Get(text).ToList();
+            List<SearchResult> images = _searchProvider.Post(text).ToList();
 
             Random random = new Random();
             int randomNumber = random.Next(0, images.Count());
@@ -37,10 +40,10 @@ namespace ShirtlessAPI.Controllers
             return slackResult;
         }
 
-        [HttpPost]
-        public SearchResult Post(string text)
+        [HttpGet]
+        public IEnumerable<SearchResult> Get(string text)
         {
-            return _searchProvider.Post(text);
+            return _searchProvider.Get(text);
         }
 
         #region Constructors
