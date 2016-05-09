@@ -15,7 +15,7 @@ namespace ShirtlessAPI.Models
 
         public SlackSearchResult(string Text, string MediaUrl, string ThumbUrl)
         {
-            Text = text;
+            text = Text;
             media_url = MediaUrl;
             thumb_url = ThumbUrl;
         }
