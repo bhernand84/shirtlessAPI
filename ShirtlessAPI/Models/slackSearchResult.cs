@@ -23,14 +23,12 @@ namespace ShirtlessAPI.Models
 
     public class SlackAttachment
     {
-        public string title { get; set; }
         public string image_url { get; set; }
 
         public SlackAttachment() { }
 
-        public SlackAttachment(string Title, string ImageUrl)
+        public SlackAttachment(string ImageUrl)
         {
-            title = Title;
             image_url = ImageUrl;
         }
     }
