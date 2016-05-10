@@ -34,15 +34,10 @@ namespace ShirtlessAPI.Controllers
         public string Get(Payload payload)
         {
             List<SearchResult> images = _searchProvider.Get(payload.Text).ToList();
-
-            Random random = new Random();
-            int randomNumber = random.Next(0, images.Count());
-
+            int randomNumber = ControllerHelpers.GetRandomNumber(images.Count);
             SearchResult image = images[randomNumber];
-            List<SlackAttachment> attachments = new List<SlackAttachment>();
-            SlackAttachment attachment = new SlackAttachment(payload.Text, image.MediaUrl);
-            attachments.Add(attachment);
-            SlackSearchResult slackResult = new SlackSearchResult(attachments);
+
+            SlackSearchResult slackResult = new SlackSearchResult(ControllerHelpers.CreateSlackAttachments(payload.Text, image.MediaUrl));
 
             var request = (HttpWebRequest)WebRequest.Create(payload.ResponseUrl);
             request.ContentType = "application/json";
