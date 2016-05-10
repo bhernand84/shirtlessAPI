@@ -2,10 +2,13 @@
 using ShirtlessAPI.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Script.Serialization;
 
 namespace ShirtlessAPI.Controllers
 {
@@ -20,10 +23,17 @@ namespace ShirtlessAPI.Controllers
         }
 
         // GET api/<controller>/5
-        public SlackSearchResult Get(string text)
+        public void Get(string text, string response_url)
         {
             _logProvider.Log(text);
-            List<SearchResult> images = _searchProvider.Get(text).ToList();
+
+            Payload payload = new Payload(text, response_url);
+            Get(payload);
+        }
+
+        public string Get(Payload payload)
+        {
+            List<SearchResult> images = _searchProvider.Get(payload.Text).ToList();
 
             Random random = new Random();
             int randomNumber = random.Next(0, images.Count());
@@ -34,7 +44,20 @@ namespace ShirtlessAPI.Controllers
             attachments.Add(attachment);
             SlackSearchResult slackResult = new SlackSearchResult(image.Title, attachments);
 
-            return slackResult;
+            var request = (HttpWebRequest)WebRequest.Create(payload.ResponseUrl);
+            request.ContentType = "application/json";
+            request.Method = "POST";
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                string json = new JavaScriptSerializer().Serialize(slackResult);
+
+                streamWriter.Write(json);
+            }
+
+            HttpWebResponse response = (HttpWebResponse) request.GetResponse();
+            string responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+            return responseString;
         }
 
         [HttpPost]
