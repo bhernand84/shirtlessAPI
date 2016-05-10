@@ -38,10 +38,7 @@ namespace ShirtlessAPI.Controllers
             SearchResult image = images[randomNumber];
 
             SlackSearchResult slackResult = new SlackSearchResult(ControllerHelpers.CreateSlackAttachments(payload.Text, image.MediaUrl));
-
-            var request = (HttpWebRequest)WebRequest.Create(payload.ResponseUrl);
-            request.ContentType = "application/json";
-            request.Method = "POST";
+            HttpWebRequest request = ControllerHelpers.CreateSlackResponseRequest(payload.ResponseUrl);
 
             using (var streamWriter = new StreamWriter(request.GetRequestStream()))
             {
@@ -50,9 +47,7 @@ namespace ShirtlessAPI.Controllers
                 streamWriter.Write(json);
             }
 
-            HttpWebResponse response = (HttpWebResponse) request.GetResponse();
-            string responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
-            return responseString;
+            return ControllerHelpers.CreateResponseString(request);
         }
 
         [HttpPost]
